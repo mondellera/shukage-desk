@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="src/fonts.css">
+  <title>ShuKage — Help</title>
+  <style>
+    :root {
+      --bg:       #0e0e0e;
+      --surface:  #161616;
+      --border:   #2a2a2a;
+      --accent:   #AB3B3A;
+      --accent-d: rgb(172,59,58 / 0.8);
+      --text:     #d0d0d0;
+      --text-dim: #888;
+      --text-faint: #555;
+      --brand-ja: 'Noto Serif JP Kanji', serif;
+      --brand-en: 'JetBrains Mono', monospace;
+      --mono:     'JetBrains Mono', 'Courier New', monospace;
+      --loop:     monospace;
+      --sans:     -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --doc-meta-font-size: 10px;
+      --doc-meta-line-height: 1.35;
+      --doc-meta-gap: 0.15rem;
+      --doc-meta-bottom: 0.75rem;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 48px 24px 120px;
+    }
+
+    /* ── Header ── */
+    header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-bottom: 3.4rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+      padding-bottom: 5rem;
+
+    }
+
+    .logo-wrap {
+      text-align: center;
+    }
+
+    .logo-ja {
+      font-family: 'Noto Serif JP Kanji', serif;
+      font-size: 44px;
+      font-weight: 300;
+      color: var(--text);
+      display: block;
+      letter-spacing: 0.12em;
+      line-height: 1.1;
+    }
+
+    .logo-en {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      font-weight: 400;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .version {
+      position: absolute;
+      right: 0;
+      top: 4px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+    }
+
+    .home-link {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+
+    .home-link:hover { color: var(--text-dim); }
+
+    /*header {
+      position: relative;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 3.4rem; /* メタ2行ぶんの居場所 
+    }*/
+
+
+    /*.header-doc-meta {
+      position: absolute;
+      right: 0;
+      bottom: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.15rem;
+
+      color: var(--text-faint);
+      font-size: 0.74em;
+      line-height: 1.35;
+      text-align: right;
+    }*/
+
+    .header-doc-meta {
+      position: absolute;
+      right: 0;
+      bottom: var(--doc-meta-bottom);
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--doc-meta-gap);
+
+      font-family: var(--mono);
+      font-size: var(--doc-meta-font-size);
+      line-height: var(--doc-meta-line-height);
+      color: var(--text-faint);
+      text-align: right;
+    }
+
+    .header-doc-meta a {
+      color: inherit;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .header-doc-meta a:hover { color: var(--text-dim); }
+
+    .header-doc-title {
+      position: absolute;
+      left: 0;
+      bottom: 0.75rem;
+
+      font-family: var(--mono);
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    /* ── TOC ── */
+    nav {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin-bottom: 48px;
+    }
+
+    nav .toc-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--text-faint);
+      margin-bottom: 10px;
+    }
+
+    nav ol {
+      list-style: none;
+      counter-reset: toc;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    nav ol li { counter-increment: toc; }
+
+    nav ol li a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.15s;
+    }
+
+    nav ol li a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      min-width: 20px;
+    }
+
+    nav ol li a:hover { color: var(--text); }
+
+    /* ── Sections ── */
+    section {
+      margin-bottom: 56px;
+    }
+
+    .section-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+    .doc-meta {
+      margin: 0.8rem 0 2.5rem;
+      color: var(--text-faint);
+      font-size: 0.74rem;
+      line-height: 1.5;
+    }
+    .doc-meta-sub {
+      margin-left: 0.25em;
+    }
+    
+    .doc-latest-link {
+      margin-left: 0.9em;
+      color: inherit;
+      text-decoration: none;
+      /*text-underline-offset: 0.16em;*/
+      white-space: nowrap;
+    }
+   .doc-latest-link:hover { color: var(--text-dim); }
+   
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 12px;
+      font-family: var(--mono);
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin: 28px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p { margin-bottom: 12px; color: var(--text-dim); }
+
+    /* ── Steps ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 0 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      counter-increment: step;
+      position: relative;
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      padding-top: 2px;
+      font-weight: 700;
+    }
+
+    .step-num::before { content: counter(step, decimal-leading-zero); }
+
+    .step-content strong {
+      display: block;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .step-content span { color: var(--text-dim); font-size: 13px; }
+
+    .step-note {
+      grid-column: 2;
+      background: var(--surface);
+      border-left: 2px solid var(--accent);
+      padding: 8px 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-dim);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── Reference ── */
+    .ref-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ref-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 12px;
+      padding: 8px 10px;
+      border-radius: 2px;
+      transition: background 0.1s;
+    }
+
+    .ref-item:hover { background: var(--surface); }
+
+    .ref-key {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      display: flex;
+      align-items: flex-start;
+      padding-top: 1px;
+    }
+
+    .ref-val {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* ── Icon map ── */
+    .iconmap-group {
+      margin-bottom: 28px;
+    }
+
+    .iconmap-group-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .iconmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 2px;
+    }
+
+    .iconmap-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px;
+      border-radius: 2px;
+      transition: background 0.1s;
+    }
+
+    .iconmap-item:hover { background: var(--surface); }
+
+    .iconmap-icon {
+      font-family: var(--mono);
+      font-size: 16px;
+      color: var(--accent);
+      width: 22px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .iconmap-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    /* ── Loop-mode corner icons (off / oneshot / endless) ── */
+    .loop-icons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .loop-icon {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2px;
+      line-height: 1;
+      font-family: var(--loop);
+      font-size: 11px;
+    }
+
+    .loop-icon .c-acc { color: var(--accent); }
+    .loop-icon .c-nor { color: var(--text-dim); }
+    .loop-icon .c-num { color: var(--accent); font-size: 8px; line-height: 1; }
+
+    /* ── Callout ── */
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      padding: 14px 16px;
+      margin: 16px 0;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .callout strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 12px;
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Code ── */
+    code {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: 2px;
+      color: var(--accent);
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 64px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      display: flex;
+      justify-content: space-between;
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="home-link" href="index.html">← Home</a>
+
+  <div class="logo-wrap">
+    <span class="logo-ja">朱影</span>
+    <span class="logo-en">SHUKAGE</span>
+  </div>
+
+  <span class="version">v0.1.0</span>
+
+  <div class="header-doc-title" aria-label="Help">
+    HELP
+  </div>
+
+  <div class="header-doc-meta">
+    <div>
+      Last updated: April 2026
+      <span>(Bundled)</span>
+    </div>
+    <a
+      href="https://mondellera.github.io/shukage-desk/help.html"
+      target="_blank"
+      rel="noopener"
+    >
+      Open latest online version →
+    </a>
+  </div>
+</header>
+
+  <nav>
+    <div class="toc-title">CONTENTS</div>
+    <ol>
+      <li><a href="#intro">What is ShuKage?</a></li>
+      <li><a href="#quickstart">Basic workflow</a></li>
+      <li><a href="#iconmap">Icon map</a></li>
+      <li><a href="#reference">Feature reference</a></li>
+      <li><a href="#caveats">Known issues &amp; notes</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. Intro -->
+  <section id="intro">
+    <div class="section-num">01</div>
+    <h2>What is ShuKage?</h2>
+    <p>ShuKage is a Chrome extension for shadowing practice on YouTube. Shadowing means listening to a short audio segment and speaking (or recording yourself speaking) in sync with the speaker, which is an effective technique for pronunciation and fluency in language learning.</p>
+    <p>ShuKage lets you mark any section of a YouTube video as a <em>marker</em>, loop it, record your voice over it, and compare your recording with the original — all without leaving the page.</p>
+  </section>
+
+  <!-- 2. Basic workflow -->
+  <section id="quickstart">
+    <div class="section-num">02</div>
+    <h2>Basic workflow</h2>
+
+    <p>The typical flow from opening a video to completing a shadowing session:</p>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <strong>Open a YouTube video</strong>
+          <span>Navigate to any YouTube video. You don't need to add it to the library first — if you set A/B and press <code>ADD</code>, the video and marker are registered together automatically.</span>
+        </div>
+        <div class="step-note">
+          To add a video without a marker (e.g. to browse it later), click the <code>＋</code> button in the sidebar header while the video is playing.
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <strong>Set the A and B points</strong>
+          <span>Play the video to where you want the loop to start, then click <code>&lt;</code> to set point A. Do the same for the end point with <code>&gt;</code> for B.</span>
+        </div>
+        <div class="step-note">
+          The <strong>A</strong> and <strong>B</strong> label buttons seek to the saved marker position (double-click to also play from there). They are not used for setting points.
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <strong>Add a marker</strong>
+          <span>Click <code>ADD</code> to save the A–B range as a marker. The marker appears in the sidebar tree under the video.</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <strong>Select the marker and listen a few times</strong>
+          <span>Click the marker in the tree to select it. Use the loop button <code>⟳</code> to loop the segment. Listen carefully before attempting to shadow.</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <strong>Record shadowing with auto-playback</strong>
+          <span>This is the main recording mode. Click the loop play button to start the segment. The extension automatically starts recording your microphone when playback begins. When playback reaches point B, playback stops; recording continues for the selected rec-stop gap, then stops and saves automatically. The default gap is 2 seconds, so you don't need to press stop yourself.</span>
+        </div>
+        <div class="step-note">
+          In auto-playback recording, stopping playback before point B also stops recording after the selected rec-stop gap.
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-content">
+          <strong>Review your recording</strong>
+          <span>Open the marker properties by clicking the marker in the tree. Your recordings appear as waveform cards: use ▶ to play a recording, click its start time to seek the video, or open WaveScope to overlay and play back multiple recordings together.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. Reference -->
+  <!-- 3. Icon map -->
+  <section id="iconmap">
+    <div class="section-num">03</div>
+    <h2>Icon map</h2>
+    <p>A quick reference for the icons you'll see across ShuKage — on the video control bar and in the side panel. For details on what each one does, see the Feature reference below.</p>
+
+    <div class="iconmap-group">
+      <div class="iconmap-group-title">Control bar (on the video)</div>
+      <div class="iconmap-grid">
+        <div class="iconmap-item"><span class="iconmap-icon" style="font-size:12px;min-width:4ch;">‹5‹1 1›5›</span><span class="iconmap-label">Step 5 or 1 frame</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon" style="font-size:13px">▶ ⏸</span><span class="iconmap-label">Play / pause</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon" style="font-size:13px">▶⏺ ⏸⏺</span><span class="iconmap-label">Auto-playback recording / stop</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon" style="font-size:11px;padding-right:8px;border: 1px solid var(--border);">2</span><span class="iconmap-label">Rec-stop gap</span></div>
+        <div class="iconmap-item">
+          <span class="iconmap-icon"><span class="loop-icon" style="display:inline-grid"><span class="c-acc">┏</span><span class="c-acc">┓</span><span class="c-acc">┗</span><span class="c-acc">┛</span></span></span>
+          <span class="iconmap-label">Loop mode toggle</span>
+        </div>
+        <div class="iconmap-item"><span class="iconmap-icon" style="font-size:11px;padding-right:8px;border: 1px solid var(--border);">3</span><span class="iconmap-label">Loop gap</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">CC</span><span class="iconmap-label">Subtitles</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon" style="font-size:11px;border: 1px solid var(--border);min-width:6ch;">1.00x</span><span class="iconmap-label">Playback speed</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon" style="font-size:12px; min-width: 8ch;">⏺ 10:00</span><span class="iconmap-label">Manual record + time limit</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon"></span><span class="iconmap-label"></span></div>
+        <div class="iconmap-item"><span class="iconmap-icon"></span><span class="iconmap-label"></span></div>
+        <div class="iconmap-item"><span class="iconmap-icon"></span><span class="iconmap-label"></span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">A B</span><span class="iconmap-label">Seek to / play from point</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">&lt; &gt;</span><span class="iconmap-label">Set A / B point</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon" style="font-size:12px; min-width: 10ch;">1:23:45.67 +1:23:45.67</span><span class="iconmap-label">Marker / Play time</span></div>
+      </div>
+    </div>
+
+    <div class="iconmap-group">
+      <div class="iconmap-group-title">Side panel header</div>
+      <div class="iconmap-grid">
+        <div class="iconmap-item"><span class="iconmap-icon">+</span><span class="iconmap-label">Add current video</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">↑</span><span class="iconmap-label">Restore</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">↓</span><span class="iconmap-label">Backup</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">Σ</span><span class="iconmap-label">Practice Stats</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">c</span><span class="iconmap-label">Cleanup</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">⚙</span><span class="iconmap-label">Settings</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">?</span><span class="iconmap-label">Help</span></div>
+      </div>
+    </div>
+
+    <div class="iconmap-group">
+      <div class="iconmap-group-title">Prombra header</div>
+      <div class="iconmap-grid">
+        <div class="iconmap-item"><span class="iconmap-icon">☋</span><span class="iconmap-label">Collapse all</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">⇄</span><span class="iconmap-label">Sync with video</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">⏒</span><span class="iconmap-label">Language tree</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">□</span><span class="iconmap-label">Channel tree</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">#</span><span class="iconmap-label">Tag tree</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">⊟</span><span class="iconmap-label">Table view</span></div>
+      </div>
+    </div>
+
+    <div class="iconmap-group">
+      <div class="iconmap-group-title">Tree items</div>
+      <div class="iconmap-grid">
+        <div class="iconmap-item"><span class="iconmap-icon">♆</span><span class="iconmap-label">Expand / collapse node</span></div>
+        <div class="iconmap-item"><span class="iconmap-icon">⚜︎</span><span class="iconmap-label">Marker icon (decorative)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Feature reference -->
+  <section id="reference">
+    <div class="section-num">04</div>
+    <h2>Feature reference</h2>
+
+    <h3>Control bar</h3>
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-key" style="font-size:11px;">‹5‹1 1›5›</span><span class="ref-val">Step backward or forward by 1 or 5 frames.</span></div>
+      <div class="ref-item"><span class="ref-key">▶ / ⏸</span><span class="ref-val">Play / pause toggle. The label follows the actual playback state automatically, regardless of which button was last pressed.</span></div>
+      <div class="ref-item"><span class="ref-key">▶⏺ / ⏸⏺</span><span class="ref-val">Auto-playback recording. ▶⏺ plays and records together; recording stops after a gap once playback stops. ⏸⏺ stops both playback and recording immediately (no gap), and pulses while recording is active.</span></div>
+      <div class="ref-item"><span class="ref-key"><span style="border:1px solid var(--border);padding:1px 2px;min-width:4ch;margin-right:8px;">2</span><span>(Rec-stop gap)</span></span><span class="ref-val">The number beside ▶⏺ — a dropdown for the wait time (seconds) before recording stops after playback ends. During the gap, a live countdown (e.g. 1.23) overlays the number to 1/100s, then returns to normal.</span></div>
+      <div class="ref-item">
+        <span class="ref-key loop-icons">
+          <span class="loop-icon"><span class="c-nor">┏</span><span class="c-nor">┓</span><span class="c-nor">┗</span><span class="c-nor">┛</span></span>
+          <span class="loop-icon"><span class="c-acc">┏</span><span class="c-acc">┓</span><span class="c-acc">┗</span><span class="c-num">1</span></span>
+          <span class="loop-icon"><span class="c-acc">┏</span><span class="c-acc">┓</span><span class="c-acc">┗</span><span class="c-acc">┛</span></span>
+        </span>
+        <span class="ref-val">Toggle loop mode: off → one-shot (play once) → endless (repeat).</span>
+      </div>
+      <div class="ref-item"><span class="ref-key"><span style="border:1px solid var(--border);padding:1px 2px;min-width:4ch;margin-right:8px;">3</span><span> (Loop gap)</span> </span><span class="ref-val">The number beside the loop icon — a dropdown for the wait time (seconds) before the next loop starts in endless mode. Counts down with the same 1/100s overlay as the rec-stop gap.</span></div>
+      <div class="ref-item"><span class="ref-key">CC</span><span class="ref-val">Toggle YouTube subtitles.</span></div>
+      <div class="ref-item">
+        <span class="ref-key">
+          <span style="border:1px solid var(--border);padding:1px 2px;min-width:4ch;margin-right:8px;">1.00x</span>
+        </span>
+          <span class="ref-val">Set playback speed (0.5x, 0.75x, 1x, 1.25x).</span>
+      </div>
+      <div class="ref-item"><span class="ref-key">⏺ 10:00</span><span class="ref-val">Manual recording button that also serves as the time-limit display. Recording, whether manual or automatic, shows a live countdown like <code>⏹ 9:59</code>; click to stop, or let it stop automatically at the limit. The default limit is set in Settings. While recording, the marker shows a "recording…" placeholder until the waveform is saved.</span></div>
+      <div class="ref-item"><span class="ref-key">A</span><span class="ref-val">Click to seek to the A point. Double-click to start playback from A.</span></div>
+      <div class="ref-item"><span class="ref-key">B</span><span class="ref-val">Click to seek to the B point. Double-click to start playback from 3 seconds before B and stop automatically at B — handy for checking the B position.</span></div>
+      <div class="ref-item"><span class="ref-key">&lt; / &gt;</span><span class="ref-val">Set A or B to the current playback position.</span></div>
+      <div class="ref-item"><span class="ref-key">1:23:45.67</span><span class="ref-val">Marker or playback time. The large time between <code>&lt;</code> and <code>&gt;</code> shows the current playback time. Click to toggle between absolute position and elapsed time from A; the B time switches to the same format in sync. The A and B marker times are displayed in the same way, but with a slightly smaller font size.</span></div>
+      <div class="ref-item"><span class="ref-key">+1:23:45.67</span><span class="ref-val">Elapsed time format.</span></div>
+      <div class="ref-item"><span class="ref-key">UPDATE</span><span class="ref-val">Save the current A/B values to the selected marker (the title is edited separately in marker properties). The matching marker must be selected in the tree, otherwise a "Select a marker first" message appears.</span></div>
+
+
+      <div class="ref-item"><span class="ref-key">ADD</span><span class="ref-val">Create a new marker with the current A/B values. It's named automatically (shadowing1, shadowing2, …), added to the tree, then opened in marker properties, where you can rename it.</span></div>
+
+
+      <div class="ref-item"><span class="ref-key">⚜︎ name</span><span class="ref-val">The label area shows the active marker's name, preceded by the marker icon (⚜︎). The icon is decorative only — it also appears next to marker titles in the tree.</span></div>
+    </div>
+    
+    <h3>Recording modes</h3>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:14px;line-height:1.6;">ShuKage has two ways to record. See the control-bar buttons above for exact behavior.</p>
+    <div class="ref-grid">
+      <div class="ref-item">
+        <span class="ref-key">Auto-playback</span>
+        <span class="ref-val">The main mode (▶⏺). Recording starts and stops together with playback, so you just play a segment and speak along. Works seamlessly with the AB loop. Recommended for most shadowing sessions.</span>
+      </div>
+      <div class="ref-item">
+        <span class="ref-key">Manual</span>
+        <span class="ref-val">The ⏺ button starts recording immediately, independent of playback, and you stop it the same way. Useful for free-form recording outside a defined A–B segment.</span>
+      </div>
+    </div>
+
+    <h3>Prombra — library views</h3>
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-key">⏒ Language tree</span><span class="ref-val">Default view. Videos grouped by language, markers shown under each video.</span></div>
+      <div class="ref-item"><span class="ref-key">□ Channel tree</span><span class="ref-val">Videos grouped by YouTube channel.</span></div>
+      <div class="ref-item"><span class="ref-key"># Tag tree</span><span class="ref-val">Markers grouped by tag.</span></div>
+      <div class="ref-item"><span class="ref-key">⊟ Table</span><span class="ref-val">All markers in a sortable table with difficulty, familiarity, recording count, etc. Hover column headers for tooltips.</span></div>
+      <div class="ref-item"><span class="ref-key">☋ Collapse all</span><span class="ref-val">Collapses all expanded nodes in the tree (collapse only — it doesn't expand).</span></div>
+      <div class="ref-item"><span class="ref-key">♆ Expand toggle</span><span class="ref-val">Beside language and video titles. Sideways (rotated 90°) when collapsed, upright when expanded. Click to open or close that node.</span></div>
+      <div class="ref-item"><span class="ref-key">⇄ Sync</span><span class="ref-val">Selects the item currently active in the video and scrolls to it in the tree. If a marker is active, that marker is selected; otherwise, the current video title is selected if the video is already in your library. If it isn't, ShuKage shows a message instead. Useful when you've lost track of where you are in the library.</span></div>
+    </div>
+
+    <h3>Marker properties</h3>
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-key">Like / Curious</span><span class="ref-val">Quick flags to mark favorites or segments you want to revisit. Useful for filtering and finding markers later.</span></div>
+      <div class="ref-item"><span class="ref-key">Difficulty / Familiarity</span><span class="ref-val">Rate the segment 1–5 for how hard it is and how well you know it. When set, these are tracked over time and visualized in Practice Stats.</span></div>
+      <div class="ref-item"><span class="ref-key">Memo</span><span class="ref-val">Free-text notes for the marker.</span></div>
+      <div class="ref-item"><span class="ref-key">Tags</span><span class="ref-val">Add comma-separated tags for grouping.</span></div>
+      <div class="ref-item"><span class="ref-key">Recs</span><span class="ref-val">Each recording appears as a waveform card. Use ▶ to play it, click its start time to seek the video, or open WaveScope to overlay and play back multiple recordings together.</span></div>
+    </div>
+
+    <h3>Backup &amp; restore (↑) (↓)</h3>
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-key">↓ Backup</span><span class="ref-val">Save the full library (videos, markers, recordings, history) as a <code>.json</code> file. The filename includes the local timestamp.</span></div>
+      <div class="ref-item"><span class="ref-key">↑ Restore</span><span class="ref-val">Restore from a backup file. Options: full restore (with recordings) or metadata only. Check <em>restore total &amp; usage days from backup</em> to recover the usage history. Data added after the backup is preserved (merged, not overwritten).</span></div>
+    </div>
+
+    <h3>Practice Stats (Σ)</h3>
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-key">Summary row</span><span class="ref-val">Days since first use, days with activity, recording count, streak, storage used.</span></div>
+      <div class="ref-item"><span class="ref-key">Heatmap</span><span class="ref-val">Daily recording activity over the selected period.</span></div>
+      <div class="ref-item"><span class="ref-key">Familiarity / Difficulty charts</span><span class="ref-val">BAR: average rating per video. LINE: rating count over time. Switch with BAR / LINE buttons.</span></div>
+      <div class="ref-item"><span class="ref-key">⟳ Rebuild</span><span class="ref-val">Reconstruct usage-day history from the activity log (useful after migration).</span></div>
+    </div>
+
+    <h3>Settings (⚙)</h3>
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-key">Accent color</span><span class="ref-val">Sets the highlight color used throughout the UI and the control bar.</span></div>
+      <div class="ref-item"><span class="ref-key">Font profiles</span><span class="ref-val">Create and apply custom font stacks for the sidebar text (language labels, video titles, marker titles).</span></div>
+      <div class="ref-item"><span class="ref-key">Recordings — limit</span><span class="ref-val">Maximum recording duration (1 min to 30 min).</span></div>
+      <div class="ref-item"><span class="ref-key">Recordings — UI rate</span><span class="ref-val">Update frequency of the playback position display. <em>Normal</em> or <em>Light</em> may help if video playback stutters with the extension active.</span></div>
+    </div>
+
+    <h3>Cleanup (c)</h3>
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-key">Cleanup</span><span class="ref-val">Removes orphaned audio recordings that no longer have a corresponding marker. Safe to run at any time.</span></div>
+    </div>
+
+    <h3>Video ID Display</h3>
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-key">Video ID</span><span class="ref-val">Shows the ID of the currently active YouTube video. You can verify it matches the URL of the video you're watching.</span></div>
+    </div>
+
+  </section>
+
+  <!-- 5. Known issues -->
+  <section id="caveats">
+    <div class="section-num">05</div>
+    <h2>Known issues &amp; notes</h2>
+
+    <h3>Brave — fullscreen / theater mode</h3>
+    <div class="callout">
+      <strong>KNOWN ISSUE (Brave v1.91.168)</strong>
+      When using Brave with the sidebar panel open, switching from YouTube fullscreen back to theater mode may cause a layout shift: the video area becomes slightly oversized, and the ShuKage control bar may be displaced or hidden. This layout issue also occurs with Brave's own sidebar panel when ShuKage is disabled, which points to Brave-side rendering behavior rather than an extension-specific problem.
+      <br><br>
+      We are monitoring Brave updates for a fix before considering further workarounds.
+      <br><br>
+      <strong>In the meantime:</strong> hiding the sidebar panel and resizing manually restores the correct layout. Alternatively, open the video in a new window, where the issue does not occur.
+    </div>
+
+    <h3>Disabling the extension</h3>
+    <div class="callout">
+      <strong>Toolbar toggle vs. chrome://extensions</strong>
+      Clicking the extension icon in the browser toolbar to turn ShuKage off is a <em>per-site temporary toggle</em> — reloading the page may re-enable it. To fully disable the extension, go to <code>chrome://extensions</code> and use the enable/disable switch. After disabling there, reload the page and the extension will remain off.
+    </div>
+
+    <h3>Recording destination</h3>
+    <div class="callout">
+      <strong>NOTE</strong>
+      Recordings are saved to whichever marker is selected at the time recording stops — not necessarily the one that was active when recording started. If you switch markers during a recording session, the recording will be saved to the newly selected marker. This can be used intentionally to route recordings to a specific marker.
+      <br><br>
+      Switching markers resets the ▶⏺ button to its inactive state, so auto-stop no longer applies. To stop recording, either pause playback using the ⏸ button (or YouTube's own controls) — recording will stop automatically after the stop gap — or click the ⏹ REC button to stop it directly.
+    </div>
+
+    <h3>Tab switching during recording</h3>
+    <div class="callout">
+      <strong>NOTE</strong>
+      ShuKage monitors the active YouTube tab. Switching tabs may interrupt B-point detection, causing the A–B loop to stop working while the video keeps playing. If this happens, return to the original tab and stop playback manually, or use the ▶⏺ button to stop auto-playback recording. As long as you stay on a single tab, this does not apply.
+    </div>
+    <div class="callout">
+      <strong>NOTE</strong>
+      If you reload the extension from <code>chrome://extensions</code> (e.g. after updating), ShuKage may stop responding on YouTube tabs where the control bar was already loaded. Refresh those tabs to load ShuKage again.
+    </div>
+
+  </section>
+
+  <footer>
+    <span>朱影 SHUKAGE v0.1.0</span>
+    <span>SHADOWING FOR LANGUAGE IMMERSION ON YOUTUBE</span>
+  </footer>
+
+</body>
+</html>
